@@ -12,6 +12,7 @@ ul {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     text-align: center;
     list-style-type: none;
     padding: 0;
@@ -30,7 +31,16 @@ li:not(.logo){
 }
 
 @media (min-width: 700px){
-   body{
-   display: none;
+   .logo{
+       width: auto;
+       order: 2;
+   }
+
+   .typography, .ui{
+       order: 1;
+   }
+
+   .branding, .graffiti{
+       order: 3;
    }
 }
