@@ -1,0 +1,41 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+    background-image: url(party.jpg);
+}
+
+span{
+    font-family: sans-serif;
+}
+
+div{
+    border: 1px solid red;
+
+}
+
+.title{
+    background-color: black;
+    color: white;
+    padding: 1em 0 1em 0;
+    margin-bottom: 2em;
+}
+
+.title span:first-child{
+    font-size: 2.4em;
+}
+
+.qr-code img{
+    width: 75%;
+    margin-bottom: 2em;
+}
+
+.containerdate{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: #ced3d5;
+}
+
+.containerdate .price{
+    grid-column: 1/3;
+}
