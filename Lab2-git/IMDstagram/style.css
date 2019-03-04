@@ -10,11 +10,27 @@ section img{
 
 ul {
     display: flex;
-    flex-flow: wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
     list-style-type: none;
+    padding: 0;
 }
 
 li {
     padding: 1em;
-    justify-content: center;
+}
+
+li:not(.logo){
+    flex-grow: 1;
+}
+
+.logo{
+    width: 100%;
+}
+
+@media (min-width: 700px){
+   body{
+   display: none;
+   }
 }
