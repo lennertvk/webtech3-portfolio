@@ -1,13 +1,3 @@
-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-section img{
-    padding-bottom: 1em;
-}
-
 ul {
     display: flex;
     flex-wrap: wrap;
@@ -29,6 +19,20 @@ li:not(.logo){
 .logo{
     width: 100%;
 }
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+section img{
+    padding: 15px;
+    flex: 1 1 100px;
+}
+
 
 @media (min-width: 700px){
    .logo{
