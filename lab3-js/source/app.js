@@ -39,7 +39,7 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
 
     document.querySelector("div.notes").appendChild(div);
 
-    a.addEventListener('click', this.remove.bind(div));
+    a.addEventListener('click', this.remove.bind(text));
 
   }
   
@@ -50,10 +50,7 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
     // localStorage only supports strings, not arrays
     // if you want to store arrays, look at JSON.parse and JSON.stringify
 
-    //    ["note1", "note2"]
-    // 1 - get localstorage (notes?)
     let arrOldNotes = JSON.parse(localStorage.getItem('notes'));
-   // console.log(arrOldNotes);
 
     // 2 - als die bestaan, lees uit, anders zet lege array klaar
     if(arrOldNotes == null){
@@ -72,7 +69,11 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
     
     let index = notesremove.indexOf(this);
 
+    console.log(this);
     console.log(index);
+    console.log(notesremove);
+    localStorage.removeItem('notes')
+
     // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
     // in this function, 'this' will refer to the current note element
   } 
