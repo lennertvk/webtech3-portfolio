@@ -82,8 +82,12 @@ var Note = function () {
 
             console.log(this);
             console.log(index);
+            console.log(notesremove);
+            //localStorage.removeItem('notes')
 
-            localStorage.removeItem('notes');
+            notesremove.splice(index, 1);
+
+            localStorage.setItem('notes', JSON.stringify(notesremove));
 
             // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
             // in this function, 'this' will refer to the current note element
