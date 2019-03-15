@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <h1>Something</h1>
+    <script>
+        const badmovies = ['Aquaman', 'The lion king', 'Predator'];
+/*        badmovies.forEach(function(movie){
+            console.log(movie + " lalala");
+        });
+*/
+/*        badmovies.forEach(movie =>{
+            document.write(`<h1>hallo dit is een header ${movie} lalala</h1>`);
+        }); */
+
+       /* const watching = badmovies.map(function(movie){
+            return movie + "is a bad movie";
+        });
+
+        console.log(watching);*/
+        
+        /*
+        var movie = function(title){
+            this.title = title;
+            this.play = function(){
+                console.log("now playing " + this.title);
+            }
+        }
+
+        var movie1 = new movie("aquaman");
+        var movie2 = new movie("predator VII");
+
+        movie2.play();
+
+        */
+
+        /*
+        HTMLElement.prototype.hide = function(){        // dit is hoe jquerry ook werkt
+            this.style.display = "none";                // nu kennen alle html elementen de functie hide en kies je zelf wat die inhoud
+
+        }
+        
+        var title = document.querySelector("h1");
+
+        */
+        //title.hide();
+
+        /*
+        let movie = function(title){
+            this.title = title;
+            this.play = () => {
+                console.log(`now playing ${this.title}`);
+            }
+        }
+
+        let movie1 = new movie("aquaman");
+        let movie2 = new movie("predator VII");
+
+        movie2.play();
+        */
+
+        /*
+        class movie{
+            constructor(title){
+                this.title = title;
+            }
+
+            play(){
+                console.log(`play play play ${this.title}`)
+            }
+        }
+
+        let movie1 = new movie("aquaman");
+        let movie2 = new movie("predator VII");
+
+        movie2.play();
+        */
+
+        /*
+        let myPromise = new Promise((resolve, reject)=>{
+            setTimeout(() => {
+                resolve("it's done");
+            }, 3000);
+        });
+
+        myPromise.then( (result) => {
+            console.log(result);
+        });
+
+        console.log("is it done?");
+        */
+
+        class movie{
+            constructor(title){
+                this.title = title;
+            }
+
+            play(){
+                console.log(`play play play ${this.title}`)
+            }
+        }
+
+        let movie1 = new movie("aquaman");
+        let movie2 = new movie("predator VII");
+
+        movie2.play();
+    </script>
+</body>
+</html>
+
