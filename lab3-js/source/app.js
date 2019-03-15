@@ -2,20 +2,27 @@
 class Note { // dit is als de extra klasse die je aanmaakt in java
   constructor(title) {
     this.title = title;
-    // HINT🤩 this.element = this.createElement(title);
-  }
-  
-  createElement(){ //  createElement(title){
+    this.element = this.createElement(title);
     
-    //document.getElementById('btnAddNote').addEventListener('click', this.remove.bind(divpa));
-    //return divpa;
+    // this.element = this.createElement(title);
   }
   
-  add(){
+  createElement(){ 
+    //let a = document.querySelector("a");
+    
+    // HINT🤩 a.addEventListener('click', this.remove.bind(newNote));
+  }
+  
+  add(contentnote){
+    console.log(contentnote);
     let br = document.createElement("br");
     let p = document.createElement("p");
     p.innerHTML = document.getElementById('txtAddNote').value;
     let text = p.innerHTML;
+
+    if(contentnote != null){
+      text = contentnote;
+    }
 
     let div = document.createElement("div");
     div.classList.add('card');
@@ -24,13 +31,15 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
 
     let a = document.createElement("a");
     a.classList.add('card-remove');
+    a.href = "#";
     a.innerHTML = "remove";
 
     div.appendChild(br);
-
-    let divpa = div.appendChild(a);
+    div.appendChild(a);
 
     document.querySelector("div.notes").appendChild(div);
+
+    a.addEventListener('click', this.remove.bind(div));
 
   }
   
@@ -44,7 +53,7 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
     //    ["note1", "note2"]
     // 1 - get localstorage (notes?)
     let arrOldNotes = JSON.parse(localStorage.getItem('notes'));
-    console.log(arrOldNotes);
+   // console.log(arrOldNotes);
 
     // 2 - als die bestaan, lees uit, anders zet lege array klaar
     if(arrOldNotes == null){
@@ -59,6 +68,11 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
   }
   
   remove(){
+    let notesremove = JSON.parse(localStorage.getItem('notes'));
+    
+    let index = notesremove.indexOf(this);
+
+    console.log(index);
     // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
     // in this function, 'this' will refer to the current note element
   } 
@@ -80,34 +94,16 @@ class App { //dit is de main klasse in java
   }
   
   loadNotesFromStorage() {
-    //localStorage.getItem("noteee");  ????
-    let arr = localStorage.getItem('notes');
-    
-   // console.log(typeof(arr));
-   // console.log(arr);
-   
-   /*
+    let arr = JSON.parse(localStorage.getItem('notes'));
+    console.log(arr);
+
+    if(arr != null){
     for(let i = 0; i < arr.length; i++){
-        let note = new Note();
-        note.add();
-    }
-
-    */
-    /*
-    let keys = Object.keys(localStorage["notes"]);
-    let lengthe = keys.length;
-    console.log(lengthe);
-
-    for(let i = 0; i < lengthe ; i++){
       let note =  new Note();
-      let oldnotes = JSON.parse(localStorage.getItem(localStorage.key(i)[1]));
-      let contnotes = oldnotes;
-     // console.log(oldnotes);
-      note.add(oldnotes);
+      note.add(arr[i]);
     }
-
-    */
-
+  }
+   
     // HINT🤩
     // load all notes from storage here and add them to the screen
     // something like note.add() in a loop would be nice
@@ -118,7 +114,7 @@ class App { //dit is de main klasse in java
     let note =  new Note();
     note.add();
     note.saveToStorage();
-
+    this.reset();
 
     // notitieveld krijgen in note
     // notes htlm elementen aanma
@@ -134,6 +130,7 @@ class App { //dit is de main klasse in java
   }
   
   reset(){
+    document.getElementById('txtAddNote').value = "";
     // this function should reset the form 
   }
   

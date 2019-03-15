@@ -10,23 +10,30 @@ var Note = function () {
         _classCallCheck(this, Note);
 
         this.title = title;
-        // HINT🤩 this.element = this.createElement(title);
+        this.element = this.createElement(title);
+
+        // this.element = this.createElement(title);
     }
 
     _createClass(Note, [{
         key: "createElement",
-        value: function createElement() {//  createElement(title){
+        value: function createElement() {
+            //let a = document.querySelector("a");
 
-            //document.getElementById('btnAddNote').addEventListener('click', this.remove.bind(divpa));
-            //return divpa;
+            // HINT🤩 a.addEventListener('click', this.remove.bind(newNote));
         }
     }, {
         key: "add",
-        value: function add() {
+        value: function add(contentnote) {
+            console.log(contentnote);
             var br = document.createElement("br");
             var p = document.createElement("p");
             p.innerHTML = document.getElementById('txtAddNote').value;
             var text = p.innerHTML;
+
+            if (contentnote != null) {
+                text = contentnote;
+            }
 
             var div = document.createElement("div");
             div.classList.add('card');
@@ -35,38 +42,48 @@ var Note = function () {
 
             var a = document.createElement("a");
             a.classList.add('card-remove');
+            a.href = "#";
             a.innerHTML = "remove";
 
             div.appendChild(br);
-
-            var divpa = div.appendChild(a);
+            div.appendChild(a);
 
             document.querySelector("div.notes").appendChild(div);
+
+            a.addEventListener('click', this.remove.bind(div));
         }
     }, {
         key: "saveToStorage",
         value: function saveToStorage() {
 
             var val = document.getElementById('txtAddNote').value;
-            var i = 0;
-            var arrui = [];
-            arrui.push(val);
-
-            var appendToStorage = function appendToStorage(name, data) {
-                var old = localStorage.getItem(name);
-                if (old === null) old = "";
-                localStorage.setItem(name, old + data);
-            };
-
-            appendToStorage('notes', JSON.stringify(arrui));
-
             // HINT🤩
             // localStorage only supports strings, not arrays
             // if you want to store arrays, look at JSON.parse and JSON.stringify
+
+            //    ["note1", "note2"]
+            // 1 - get localstorage (notes?)
+            var arrOldNotes = JSON.parse(localStorage.getItem('notes'));
+            // console.log(arrOldNotes);
+
+            // 2 - als die bestaan, lees uit, anders zet lege array klaar
+            if (arrOldNotes == null) {
+                arrOldNotes = [];
+            }
+
+            // 3 - arrNotes.push("val")
+            arrOldNotes.push(val);
+            // 4 - stuur naar localstorage (stringify(array))
+            localStorage.setItem('notes', JSON.stringify(arrOldNotes));
         }
     }, {
         key: "remove",
         value: function remove() {
+            var notesremove = JSON.parse(localStorage.getItem('notes'));
+
+            var index = notesremove.indexOf(this);
+
+            console.log(index);
             // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
             // in this function, 'this' will refer to the current note element
         }
@@ -96,26 +113,15 @@ var App = function () {
     _createClass(App, [{
         key: "loadNotesFromStorage",
         value: function loadNotesFromStorage() {
-            //localStorage.getItem("noteee");  ????
-
             var arr = JSON.parse(localStorage.getItem('notes'));
+            console.log(arr);
 
-            for (var i = 0; i < arr.length; i++) {
-                var note = new Note();
-                note.add();
+            if (arr != null) {
+                for (var i = 0; i < arr.length; i++) {
+                    var note = new Note();
+                    note.add(arr[i]);
+                }
             }
-            /*
-            let keys = Object.keys(localStorage["notes"]);
-            let lengthe = keys.length;
-            console.log(lengthe);
-              for(let i = 0; i < lengthe ; i++){
-              let note =  new Note();
-              let oldnotes = JSON.parse(localStorage.getItem(localStorage.key(i)[1]));
-              let contnotes = oldnotes;
-             // console.log(oldnotes);
-              note.add(oldnotes);
-            }
-              */
 
             // HINT🤩
             // load all notes from storage here and add them to the screen
@@ -128,6 +134,7 @@ var App = function () {
             var note = new Note();
             note.add();
             note.saveToStorage();
+            this.reset();
 
             // notitieveld krijgen in note
             // notes htlm elementen aanma
@@ -144,6 +151,7 @@ var App = function () {
     }, {
         key: "reset",
         value: function reset() {
+            document.getElementById('txtAddNote').value = "";
             // this function should reset the form 
         }
     }]);
