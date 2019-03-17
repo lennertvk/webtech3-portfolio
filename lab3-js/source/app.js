@@ -65,19 +65,33 @@ class Note { // dit is als de extra klasse die je aanmaakt in java
   }
   
   remove(){
+    // style display none toevoegen aan het item en dan klaar!!!!!!
     let notesremove = JSON.parse(localStorage.getItem('notes'));
     
     let index = notesremove.indexOf(this);
 
     console.log(this);
-    console.log(index);
+    console.log("de index is " + index);
     console.log(notesremove);
+    console.log(typeof(this.outerHTML));
     //localStorage.removeItem('notes')
 
     notesremove.splice(index, 1);
 
     localStorage.setItem('notes', JSON.stringify(notesremove));
 
+    //this.parentNode.removeChild(this.parentNode.parentNode);
+
+    
+    let divke = document.getElementsByClassName("card");
+    console.log(divke[index]);
+    divke[index].remove();
+
+    
+//   document.querySelector("div").innerHTML = this;
+    
+    //this.style.display = "none";
+    
     // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
     // in this function, 'this' will refer to the current note element
   } 
@@ -88,6 +102,19 @@ class App { //dit is de main klasse in java
     console.log("👊🏼 The Constructor!");
     this.btnAdd = document.getElementById('btnAddNote');
     this.btnAdd.addEventListener("click", this.createNote.bind(this));
+    let input =  this;
+    
+
+    
+    this.form = document.getElementById('txtAddNote');
+    this.form.addEventListener('keyup',(e) => {
+      if (e.keyCode === 13) {
+        console.log("enter");
+        this.createNote();    
+      }
+  });
+
+
     this.loadNotesFromStorage();
 
     // HINT🤩

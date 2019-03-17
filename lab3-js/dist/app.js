@@ -1,5 +1,7 @@
 "use strict";
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76,18 +78,31 @@ var Note = function () {
     }, {
         key: "remove",
         value: function remove() {
+            // style display none toevoegen aan het item en dan klaar!!!!!!
             var notesremove = JSON.parse(localStorage.getItem('notes'));
 
             var index = notesremove.indexOf(this);
 
             console.log(this);
-            console.log(index);
+            console.log("de index is " + index);
             console.log(notesremove);
+            console.log(_typeof(this.outerHTML));
             //localStorage.removeItem('notes')
 
             notesremove.splice(index, 1);
 
             localStorage.setItem('notes', JSON.stringify(notesremove));
+
+            //this.parentNode.removeChild(this.parentNode.parentNode);
+
+
+            var divke = document.getElementsByClassName("card");
+            console.log(divke[index]);
+            divke[index].remove();
+
+            //   document.querySelector("div").innerHTML = this;
+
+            //this.style.display = "none";
 
             // HINT🤩 the meaning of 'this' was set by bind() in the createElement function
             // in this function, 'this' will refer to the current note element
@@ -100,11 +115,23 @@ var Note = function () {
 var App = function () {
     //dit is de main klasse in java
     function App() {
+        var _this = this;
+
         _classCallCheck(this, App);
 
         console.log("👊🏼 The Constructor!");
         this.btnAdd = document.getElementById('btnAddNote');
         this.btnAdd.addEventListener("click", this.createNote.bind(this));
+        var input = this;
+
+        this.form = document.getElementById('txtAddNote');
+        this.form.addEventListener('keyup', function (e) {
+            if (e.keyCode === 13) {
+                console.log("enter");
+                _this.createNote();
+            }
+        });
+
         this.loadNotesFromStorage();
 
         // HINT🤩
