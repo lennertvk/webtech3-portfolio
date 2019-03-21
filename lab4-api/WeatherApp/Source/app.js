@@ -52,12 +52,14 @@ class Weather{
        // console.log(shortsum);
         document.getElementById('shortdiscription').innerHTML = shortsum;
         document.getElementById('atthisminute').innerHTML = longsum;
+        console.log("klaar");
         
     }
 }
 
 let app = new Weather('db4523c613cbbd173ea77a80db733bf5'); // zo kan je er een online plugin van maken en kunnen mensen zelf hun key ingeven
 // komt binnen in de constructor
+
 
 class Meme{
     constructor(API_KEY){
@@ -66,23 +68,13 @@ class Meme{
     }
 
     initialize(){
-        this.getMeme();   
+        this.getMeme(); 
      // console.log("test2");
     }
 
     getMeme(){
-        console.log("test3");
+        //console.log("test3");
         let memesearch = "coding";
-     /*
-        document.getElementById('memesearch').addEventListener('keypress', function (e) {
-                var key = e.which || e.keyCode;
-                if (key === 13) { //stackoverflow
-                    //console.log("enter");
-                    let memesearch = document.getElementById('memesearch').value;
-                    console.log(memesearch);
-                }
-            });
-      */      
         let url = `http://version1.api.memegenerator.net//Instances_Search?q=${memesearch}&apiKey=${this.API_KEY}`;
         fetch(url)
         .then(response => {
@@ -99,3 +91,25 @@ class Meme{
 }
 
 let meme = new Meme('2014ed7c-1554-4504-9810-2d6713d79f37');
+
+document.getElementById('memesearch').addEventListener('keypress', (e) => {
+    let key = e.which || e.keyCode;
+    if (key === 13) { //stackoverflow
+        //console.log("enter");
+        let check = document.getElementById('memesearch').value;
+        if(check != null){
+        let search = check;
+        let url = `http://version1.api.memegenerator.net//Instances_Search?q=${search}&apiKey=2014ed7c-1554-4504-9810-2d6713d79f37` 
+        fetch(url)
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+                let randomnr = Math.floor(Math.random() * (json.result.length - 2));
+                //console.log(randomnr);
+                let memeurl = json.result[randomnr]['imageUrl'];
+                document.getElementById('meme').innerHTML = '<img src="' + memeurl +'">';
+         })
+        }
+    }
+});
