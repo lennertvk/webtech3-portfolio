@@ -1,8 +1,9 @@
 class Weather{
     constructor(API_KEY){
         this.API_KEY = API_KEY;
-       // console.log("test");
+        //console.log("test");
         this.initialize();
+        
     }
 
 
@@ -32,10 +33,26 @@ class Weather{
         .then(json => {
            //  console.log(json.currently.summary);
            console.log(json);
-            document.getElementById('shortdiscription').innerHTML = json.currently.summary;
+            let shortsumary = json.currently.summary;
             let atthisminute = json.hourly.summary;
-            document.getElementById('atthisminute').innerHTML = atthisminute;
+            this.savatolocalstorage(shortsumary, atthisminute);
+            this.loadfromlocalstorage();
         })
+    }
+
+    savatolocalstorage(shortsum, longsum){
+        //console.log("we zijn er ");
+        localStorage.setItem('short summary', shortsum);
+        localStorage.setItem('long summary', longsum);
+    }
+
+    loadfromlocalstorage(){
+        let shortsum = localStorage.getItem('short summary');
+        let longsum = localStorage.getItem('long summary');
+       // console.log(shortsum);
+        document.getElementById('shortdiscription').innerHTML = shortsum;
+        document.getElementById('atthisminute').innerHTML = longsum;
+        
     }
 }
 
@@ -55,24 +72,28 @@ class Meme{
 
     getMeme(){
         console.log("test3");
-        let url = `http://version1.api.memegenerator.net//Instances_Search?q=coding&apiKey=${this.API_KEY}`;
+        let memesearch = "coding";
+     /*
+        document.getElementById('memesearch').addEventListener('keypress', function (e) {
+                var key = e.which || e.keyCode;
+                if (key === 13) { //stackoverflow
+                    //console.log("enter");
+                    let memesearch = document.getElementById('memesearch').value;
+                    console.log(memesearch);
+                }
+            });
+      */      
+        let url = `http://version1.api.memegenerator.net//Instances_Search?q=${memesearch}&apiKey=${this.API_KEY}`;
         fetch(url)
         .then(response => {
             return response.json();
         })
         .then(json => {
-            let randomnr = Math.floor(Math.random() * (json.result.length - 2));
-            //console.log(randomnr);
-            let memeurl = json.result[randomnr]['imageUrl'];
-            document.getElementById('meme').innerHTML = '<img src="' + memeurl +'">';
 
-            document.getElementById('memesearch').addEventListener('keypress', function (e) {
-                    var key = e.which || e.keyCode;
-                    if (key === 13) { //stackoverflow
-                        console.log("enter");
-                    }
-                });
-
+                let randomnr = Math.floor(Math.random() * (json.result.length - 2));
+                //console.log(randomnr);
+                let memeurl = json.result[randomnr]['imageUrl'];
+                document.getElementById('meme').innerHTML = '<img src="' + memeurl +'">';
          })
     }
 }
