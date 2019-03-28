@@ -60,56 +60,32 @@ class Weather{
 let app = new Weather('db4523c613cbbd173ea77a80db733bf5'); // zo kan je er een online plugin van maken en kunnen mensen zelf hun key ingeven
 // komt binnen in de constructor
 
-
-class Meme{
-    constructor(API_KEY){
-        this.API_KEY = API_KEY;
+class Poke{
+    constructor(){
         this.initialize();
     }
 
     initialize(){
-        this.getMeme(); 
-     // console.log("test2");
+        this.getRandomPoke();         
     }
 
-    getMeme(){
-        //console.log("test3");
-        let memesearch = "coding";
-        let url = `http://version1.api.memegenerator.net//Instances_Search?q=${memesearch}&apiKey=${this.API_KEY}`;
+    getRandomPoke(){
+        let randomnr = Math.floor(Math.random() * 800) + 1;
+        let url = `https://pokeapi.co/api/v2/pokemon/${randomnr}/`;
         fetch(url)
         .then(response => {
             return response.json();
         })
         .then(json => {
-
-                let randomnr = Math.floor(Math.random() * (json.result.length - 2));
-                //console.log(randomnr);
-                let memeurl = json.result[randomnr]['imageUrl'];
-                document.getElementById('meme').innerHTML = '<img src="' + memeurl +'">';
-         })
+           let img = json.sprites.front_default;
+           console.log(json);
+           let name = json.forms[0].name;
+           document.getElementById('poke').innerHTML = `<img src="${img}">`;
+           document.getElementById('name').innerHTML = name;
+        })
     }
+
 }
 
-let meme = new Meme('2014ed7c-1554-4504-9810-2d6713d79f37');
 
-document.getElementById('memesearch').addEventListener('keypress', (e) => {
-    let key = e.which || e.keyCode;
-    if (key === 13) { //stackoverflow
-        //console.log("enter");
-        let check = document.getElementById('memesearch').value;
-        if(check != null){
-        let search = check;
-        let url = `http://version1.api.memegenerator.net//Instances_Search?q=${search}&apiKey=2014ed7c-1554-4504-9810-2d6713d79f37` 
-        fetch(url)
-        .then(response => {
-            return response.json();
-        })
-        .then(json => {
-                let randomnr = Math.floor(Math.random() * (json.result.length - 2));
-                //console.log(randomnr);
-                let memeurl = json.result[randomnr]['imageUrl'];
-                document.getElementById('meme').innerHTML = '<img src="' + memeurl +'">';
-         })
-        }
-    }
-});
+let poke = new Poke();
