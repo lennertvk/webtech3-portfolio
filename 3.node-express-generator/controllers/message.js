@@ -58,9 +58,14 @@ module.exports.getid = getid;
 // put
 
 let put =  (req,res,next) =>{
- let id = parseInt(req.params.id);
+ let id = req.params.id;
  let text = req.body.text;
-
+ res.json ({
+  "status":"success",
+  "data":{
+    "message": "het bericht met " + id + " is geupdatedeejzf "
+  }
+});
 
 }
 module.exports.put = put;
